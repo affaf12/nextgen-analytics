@@ -4,6 +4,8 @@
 //            Cursor Glow · Hero Typing · Scroll Reveal
 //            Profile Parallax · Skills · Experience
 //            Certifications · Counters · Scroll-to-Top
+//            Project Cards · SEO · Lazy Load · Glow Flash
+//            Contact Form (EmailJS)
 // ============================================================
 (() => {
   "use strict";
@@ -170,7 +172,7 @@
 
   // ── 6. HERO — TYPING EFFECT ───────────────────────────────────
   ready(() => {
-    const el    = $("#typing-text");
+    const el = $("#typing-text");
     if (!el) return;
 
     const roles = [
@@ -234,13 +236,13 @@
 
     // tag elements
     const map = [
-      { sel: ".about-card",          cls: "sr",       delay: 100 },
-      { sel: ".experience-card",     cls: "sr sr-left",delay: 0  },
-      { sel: ".skill-circle",        cls: "sr sr-scale",delay: 0 },
-      { sel: ".certification-card",  cls: "sr",        delay: 0  },
-      { sel: ".project-card",        cls: "sr sr-right",delay: 0 },
-      { sel: ".service-card",        cls: "sr sr-scale",delay: 0 },
-      { sel: ".pricing-card",        cls: "sr",        delay: 0  },
+      { sel: ".about-card",          cls: "sr",        delay: 100 },
+      { sel: ".experience-card",     cls: "sr sr-left", delay: 0  },
+      { sel: ".skill-circle",        cls: "sr sr-scale",delay: 0  },
+      { sel: ".certification-card",  cls: "sr",         delay: 0  },
+      { sel: ".project-card",        cls: "sr sr-right",delay: 0  },
+      { sel: ".service-card",        cls: "sr sr-scale",delay: 0  },
+      { sel: ".pricing-card",        cls: "sr",         delay: 0  },
     ];
 
     map.forEach(({ sel, cls }) =>
@@ -497,7 +499,6 @@
 
   // ── 12. STATS COUNTER ANIMATION ──────────────────────────────
   ready(() => {
-    // auto-detect number elements with data-count
     $$("[data-count]").forEach(el => {
       const target = +el.dataset.count;
       const suffix = el.dataset.suffix || "";
@@ -559,7 +560,6 @@
   // ── 16. HIDDEN KEYWORDS (SEO) ────────────────────────────────
   ready(() => {
     $$(".hidden-keyword").forEach(el => {
-      // keep in DOM for SEO crawlers, invisible to users
       el.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;";
     });
   });
@@ -593,6 +593,143 @@
       });
     }, { threshold: 0.3 });
     $$("section[id]").forEach(s => obs.observe(s));
+  });
+
+
+  // ── 19. CONTACT FORM — EmailJS ────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  //  SETUP (one-time):
+  //  1. Go to https://www.emailjs.com and create a free account.
+  //  2. Add an Email Service (Gmail, Outlook, etc.) → copy your SERVICE ID.
+  //  3. Create an Email Template → copy your TEMPLATE ID.
+  //     Template variables to use: {{from_name}}, {{from_email}}, {{message}}
+  //  4. Go to Account → copy your PUBLIC KEY.
+  //  5. Replace the three placeholder strings below with your real IDs.
+  //  6. In your index.html, add this line BEFORE script.js:
+  //     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  // ─────────────────────────────────────────────────────────────
+
+  const EMAILJS_PUBLIC_KEY  = "ILlSd42qf_3o8DE93";
+  const EMAILJS_SERVICE_ID  = "service_q9049ro";
+  const EMAILJS_TEMPLATE_ID = "template_wehotjb";
+
+  ready(() => {
+    // Initialise EmailJS with your public key
+    if (typeof emailjs === "undefined") {
+      console.warn("EmailJS SDK not loaded. Add the script tag to your HTML before script.js.");
+      return;
+    }
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    const form      = $("#contactForm");
+    const submitBtn = form?.querySelector("button[type='submit'], .submit-btn, #submitBtn");
+    const modal     = $("#thankYouModal");
+    const closeBtn  = $("#closeModal, .modal-close");
+
+    if (!form) return;
+
+    // ─ Form submit ─
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // basic validation
+      const name    = (form.querySelector("[name='from_name']")?.value  || "").trim();
+      const email   = (form.querySelector("[name='from_email']")?.value || "").trim();
+      const message = (form.querySelector("[name='message']")?.value    || "").trim();
+
+      if (!name || !email || !message) {
+        showFormError("Please fill in all fields.");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFormError("Please enter a valid email address.");
+        return;
+      }
+
+      // loading state
+      if (submitBtn) {
+        submitBtn.disabled    = true;
+        submitBtn.textContent = "Sending…";
+      }
+
+      try {
+        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+
+        // success — show thank-you modal or fallback alert
+        form.reset();
+        if (modal) {
+          modal.classList.add("active");
+          modal.style.display = "flex";
+        } else {
+          showFormSuccess("✓ Thank You So Much! Your message has been sent successfully. I'll get back to you soon.");
+        }
+      } catch (err) {
+        console.error("EmailJS error:", err);
+        showFormError("Something went wrong. Please try again or email me directly.");
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled    = false;
+          submitBtn.textContent = "Send Message";
+        }
+      }
+    });
+
+    // ─ Close thank-you modal ─
+    const closeModal = () => {
+      if (!modal) return;
+      modal.classList.remove("active");
+      modal.style.display = "none";
+    };
+
+    closeBtn && $$("#closeModal, .modal-close").forEach(b => b.addEventListener("click", closeModal));
+
+    // close on backdrop click
+    modal?.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal?.classList.contains("active")) closeModal();
+    });
+
+    // ─ Inline helpers ─
+    function showFormError(msg) {
+      let notice = form.querySelector(".form-notice");
+      if (!notice) {
+        notice = document.createElement("p");
+        notice.className = "form-notice";
+        notice.style.cssText = `
+          margin-top:10px; padding:10px 14px; border-radius:8px;
+          font-size:.9rem; font-weight:500;
+        `;
+        form.appendChild(notice);
+      }
+      notice.style.background = "rgba(255,75,75,.15)";
+      notice.style.color      = "#ff6b6b";
+      notice.style.border     = "1px solid rgba(255,75,75,.3)";
+      notice.textContent      = msg;
+      notice.style.display    = "block";
+      setTimeout(() => { notice.style.display = "none"; }, 5000);
+    }
+
+    function showFormSuccess(msg) {
+      let notice = form.querySelector(".form-notice");
+      if (!notice) {
+        notice = document.createElement("p");
+        notice.className = "form-notice";
+        notice.style.cssText = `
+          margin-top:10px; padding:10px 14px; border-radius:8px;
+          font-size:.9rem; font-weight:500;
+        `;
+        form.appendChild(notice);
+      }
+      notice.style.background = "rgba(75,255,108,.15)";
+      notice.style.color      = "#4bff6c";
+      notice.style.border     = "1px solid rgba(75,255,108,.3)";
+      notice.textContent      = msg;
+      notice.style.display    = "block";
+    }
   });
 
 })();
