@@ -36,10 +36,10 @@ with SessionLocal() as _db:
 app = FastAPI(
     title="NextGen Agency OS",
     version="3.0.0",
-    # /docs and /openapi.json would publish a map of every admin route
-    docs_url=None if settings.is_production else "/docs",
+    # /docs and /openapi.json would publish a map of every admin route -> off by default
+    docs_url="/docs" if settings.ENABLE_DOCS else None,
     redoc_url=None,
-    openapi_url=None if settings.is_production else "/openapi.json",
+    openapi_url="/openapi.json" if settings.ENABLE_DOCS else None,
 )
 
 app.add_middleware(

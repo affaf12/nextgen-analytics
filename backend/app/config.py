@@ -6,9 +6,14 @@ _PLACEHOLDER_KEYS = {"", "nextgen-super-secret-key", "change-this-to-a-long-rand
 
 
 class Settings(BaseSettings):
-    # "development" (local) or "production" (deployed). Production turns on
-    # strict startup checks, hides /docs and adds HSTS.
-    ENVIRONMENT: str = "development"
+    # SECURE BY DEFAULT: anything other than the exact word "development" is
+    # treated as production (strict startup checks + HSTS). Local dev sets
+    # ENVIRONMENT=development in backend/.env.
+    ENVIRONMENT: str = "production"
+
+    # Swagger /docs and /openapi.json publish a map of every route.
+    # Off unless you explicitly turn it on (local development only).
+    ENABLE_DOCS: bool = False
 
     DATABASE_URL: str = "sqlite:///./agency.db"
     SECRET_KEY: str = ""
@@ -60,7 +65,7 @@ class Settings(BaseSettings):
 
     @property
     def is_production(self) -> bool:
-        return self.ENVIRONMENT.lower() == "production"
+        return self.ENVIRONMENT.strip().lower() != "development"
 
     @property
     def cors_origins_list(self) -> List[str]:
@@ -72,10 +77,12 @@ class Settings(BaseSettings):
 
     @property
     def db_url(self) -> str:
-        url = self.DATABASE_URL
-        # Render/Heroku hand out postgres:// which SQLAlchemy 2 rejects
-        if url.startswith("postgres://"):
-            url = "postgresql://" + url[len("postgres://"):]
+        """Normalise any Postgres URL (postgres://, postgresql://, +psycopg2, +psycopg)
+        to the psycopg v3 driver, the only Postgres driver we ship."""
+        url = self.DATABASE_URL.strip()
+        for prefix in ("postgres://", "postgresql://", "postgresql+psycopg2://", "postgresql+psycopg://"):
+            if url.startswith(prefix):
+                return "postgresql+psycopg://" + url[len(prefix):]
         return url
 
 
@@ -90,7 +97,8 @@ if settings.is_production and len(settings.ADMIN_API_KEY) < 32:
 if settings.SECRET_KEY in _PLACEHOLDER_KEYS or len(settings.SECRET_KEY) < 32:
     if settings.is_production:
         raise RuntimeError(
-            "SECRET_KEY missing/weak. Set a random 48+ char value in the environment "
+            "SECRET_KEY missing/weak (running in production mode; for local work set ENVIRONMENT=development). "
+            "Set a random 48+ char value in the environment "
             "(python -c \"import secrets;print(secrets.token_urlsafe(48))\")."
         )
     # Dev only: random per-start key (admin sessions reset on restart)

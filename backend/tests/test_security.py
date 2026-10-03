@@ -57,8 +57,13 @@ def test_forged_token_rejected():
     assert c.get("/api/v1/auth/me", headers=H(bad)).status_code == 401
 
 
-def test_docs_hidden_in_prod_flag():
-    assert app.docs_url == "/docs"  # dev here; prod disables (checked in config)
+def test_docs_off_by_default():
+    # ENABLE_DOCS is not set in the test env -> /docs and /openapi.json must not exist
+    assert app.docs_url is None and app.openapi_url is None
+    assert anon.get("/docs").status_code == 404 and anon.get("/openapi.json").status_code == 404
+    from app.config import Settings
+    assert Settings(ENVIRONMENT="").is_production and Settings(ENVIRONMENT=" Production ").is_production
+    assert not Settings(ENVIRONMENT="development").is_production
 
 
 def test_public_submit_and_honeypot():
@@ -224,3 +229,15 @@ def test_audit_log_records_events_and_is_admin_only():
     events = {e["event"] for e in c.get("/api/v1/auth/audit", headers=H(tok)).json()}
     assert {"login_ok", "login_fail", "logout", "password_changed", "2fa_enabled", "otp_fail"} <= events
     assert anon.get("/api/v1/auth/audit").status_code == 404
+
+
+def test_postgres_urls_are_normalised_to_psycopg3():
+    from app.config import Settings
+    base = "user:pw@ep-x-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+    for scheme in ("postgres://", "postgresql://", "postgresql+psycopg2://", "postgresql+psycopg://"):
+        assert Settings(DATABASE_URL=scheme + base).db_url == "postgresql+psycopg://" + base
+    assert Settings(DATABASE_URL="sqlite:///./x.db").db_url == "sqlite:///./x.db"
+    # the driver really is importable and the engine can be built (no connection is made)
+    import psycopg  # noqa: F401
+    from sqlalchemy import create_engine
+    create_engine("postgresql+psycopg://" + base, connect_args={"prepare_threshold": None})
