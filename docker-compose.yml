@@ -1,0 +1,43 @@
+# PUBLIC stack only: database + backend + public website.
+# The Admin Panel is intentionally NOT here (see docker-compose.admin-local.yml).
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: agency
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+      POSTGRES_DB: agency
+    volumes: [pgdata:/var/lib/postgresql/data]
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on: [db]
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: postgresql://agency:${DB_PASSWORD}@db:5432/agency
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:?set CORS_ORIGINS in .env}
+      ADMIN_API_KEY: ${ADMIN_API_KEY:?set ADMIN_API_KEY in .env}
+      ADMIN_URL: ${ADMIN_URL:-http://localhost:5174}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@nextgenanalytics.cloud-ip.cc}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      TRUST_PROXY: "true"
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+    ports: ["8000:8000"]
+
+  frontend-public:
+    build:
+      context: ./frontend-public
+      args:
+        VITE_API_URL: ${PUBLIC_API_URL:?set PUBLIC_API_URL in .env}
+    restart: unless-stopped
+    ports: ["80:80"]
+
+volumes:
+  pgdata:
