@@ -249,7 +249,7 @@ def delete_user(user_id: int, request: Request, db: Session = Depends(get_db), c
 
 @router.post("/forgot-password", dependencies=[Depends(rate_limit("forgot", 3, 3600))])
 def forgot_password(payload: ForgotPasswordIn, request: Request, db: Session = Depends(get_db)):
-    generic = {"message": "Agar ye email registered hai, to reset link bhej diya gaya hai."}
+    generic = {"message": "If this email is registered, a reset link has been sent."}
     user = db.query(User).filter(User.email == payload.email).first()
     if not user:
         return generic
@@ -274,4 +274,4 @@ def reset_password(payload: ResetPasswordIn, request: Request, db: Session = Dep
     user.token_version = (user.token_version or 0) + 1   # kill all existing sessions
     db.commit()
     audit(db, "password_reset", user.email, request)
-    return {"message": "Password reset ho gaya. Ab naye password se login karein."}
+    return {"message": "Your password has been reset. You can now log in with the new password."}

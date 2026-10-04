@@ -34,8 +34,8 @@ async def ai_estimate(req: AIEstimateRequest):
 async def ai_chat(req: AIChatRequest):
     reply = await call_llm(f"Visitor asks: {req.message}")
     if not reply:
-        reply = ("NextGen AI: Apka sawal mil gaya. Exact scope aur price ke liye \"Submit Your Problem\" "
-                 "form fill karein - Affaf khud 2 ghante ke andar reply karega.")
+        reply = ("NextGen AI: Thanks for your question. For the exact scope and price, please use the \"Submit Your Problem\" "
+                 "form - Affaf will reply personally within 2 hours.")
     return {"reply": reply, "is_ai": True}
 
 
@@ -45,7 +45,7 @@ async def ai_chat(req: AIChatRequest):
 async def ai_crm_suggest(req: AICRMRequest, _: User = Depends(get_current_user)):
     result = mock_crm_suggest(req.client_name, req.problem, req.history)
     llm_text = await call_llm(f"Client {req.client_name} problem {req.problem} history {req.history}. "
-                              "Suggest next action and draft WhatsApp message in Roman Urdu + English")
+                              "Suggest the next action and draft a short WhatsApp message in English")
     if llm_text:
         result["draft_message"] = llm_text[:300]
     return result
