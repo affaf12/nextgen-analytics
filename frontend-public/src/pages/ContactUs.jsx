@@ -18,7 +18,7 @@ export default function ContactUs(){
       })
       setDone(true)
     } catch (err) {
-      setError(err?.response?.status === 429 ? 'Bohat zyada requests - thori dair baad try karein.' : 'Kuch masla ho gaya, dobara try karein ya seedha email karein.')
+      setError(err?.response?.status === 429 ? 'Too many requests - please try again in a little while.' : 'Something went wrong. Please try again or email us directly.')
     } finally {
       setSubmitting(false)
     }
