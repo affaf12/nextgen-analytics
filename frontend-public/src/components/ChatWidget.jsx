@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import api from '../api/client.js'
 
-const WELCOME = "Hi! Main NextGen ka AI assistant hoon. Apna sawal ya masla batayein, main foran reply karta hoon."
+const WELCOME = "Hi! I'm the NextGen AI assistant. Tell me your question or problem and I'll reply right away."
 
 export default function ChatWidget(){
   const [open, setOpen] = useState(false)
@@ -28,7 +28,7 @@ export default function ChatWidget(){
       const res = await api.post('/api/v1/ai/chat', { message: text })
       setMessages(m => [...m, { from: 'ai', text: res.data.reply }])
     } catch {
-      setMessages(m => [...m, { from: 'ai', text: 'Sorry, abhi reply nahi bhej saka. Seedha Submit Your Problem form try karein.' }])
+      setMessages(m => [...m, { from: 'ai', text: 'Sorry, I can’t reply right now. Please try the Submit Your Problem form instead.' }])
     } finally {
       setSending(false)
     }
@@ -66,7 +66,7 @@ export default function ChatWidget(){
               <input
                 value={input}
                 onChange={e=>setInput(e.target.value)}
-                placeholder="Apna sawal likhein..."
+                placeholder="Type your question..."
                 className="flex-1 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-sm text-white placeholder:text-slate-500"
               />
               <button type="submit" disabled={sending} className="px-4 py-2 bg-indigo-600 rounded-lg text-white text-sm font-semibold disabled:opacity-50">
