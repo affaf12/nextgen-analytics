@@ -40,7 +40,7 @@ export default function Portfolio(){
   useEffect(() => {
     api.get('/api/v1/portfolio/')
       .then(r => setSections(r.data))
-      .catch(() => setError('Projects load nahi ho sake, thodi dair baad try karein.'))
+      .catch(() => setError('Couldn’t load projects, please try again shortly.'))
   }, [])
 
   const loading = sections === null && !error
