@@ -5,34 +5,34 @@ import FAQAccordion from '../components/FAQAccordion.jsx'
 const Hero3D = lazy(() => import('../components/Hero3D.jsx'))
 
 const SERVICES = [
-  {t:"Lead Gen System", d:"Google Maps scraper 70% hot leads, 2.8min me 60 leads", s:"FastAPI + Playwright"},
+  {t:"Lead Gen System", d:"Google Maps scraper - 70% hot leads, 60 leads in 2.8 minutes", s:"FastAPI + Playwright"},
   {t:"Social Media AI", d:"Auto post, AI caption, scheduler", s:"FastAPI + React"},
-  {t:"Power BI Dashboards", d:"Sales, HR, Inventory dashboards - tumhare existing data se", s:"Power BI + SQL"},
-  {t:"Delivery Chatbot", d:"Natural language se data query", s:"Streamlit + Transformers"},
+  {t:"Power BI Dashboards", d:"Sales, HR and Inventory dashboards - built from your existing data", s:"Power BI + SQL"},
+  {t:"Delivery Chatbot", d:"Query your data in natural language", s:"Streamlit + Transformers"},
   {t:"ATS Resume Scorer", d:"JD match, keyword extraction", s:"Python + NLP"},
-  {t:"Custom SaaS", d:"Client ki koi bhi problem ka SaaS solution", s:"FastAPI + React + Postgres"},
+  {t:"Custom SaaS", d:"A SaaS solution for any client problem", s:"FastAPI + React + Postgres"},
 ]
 
 const PROCESS = [
-  { n: "01", t: "Submit Your Problem", d: "Form fill karo ya AI Assistant se baat karo - koi call schedule karne ki zaroorat nahi." },
-  { n: "02", t: "Instant AI Estimate", d: "Stack, timeline aur price turant mil jaata hai - koi wait nahi." },
-  { n: "03", t: "Built by the Founder", d: "Wahi shaks jo estimate deta hai, wahi khud build bhi karta hai - koi hand-off nahi." },
-  { n: "04", t: "Delivered & Supported", d: "Working system deliver hota hai, source code ke sath, aur delivery ke baad bhi support." },
+  { n: "01", t: "Submit Your Problem", d: "Fill in the form or chat with the AI Assistant - no need to schedule a call." },
+  { n: "02", t: "Instant AI Estimate", d: "Get the stack, timeline and price instantly - no waiting." },
+  { n: "03", t: "Built by the Founder", d: "The person who gives you the estimate also builds it - no hand-offs." },
+  { n: "04", t: "Delivered & Supported", d: "You get a working system with the source code, plus support after delivery." },
 ]
 
 const WHY_US = [
-  { t: "Direct founder access", d: "Koi account manager, koi middle-man nahi - jo estimate deta hai wahi code likhta hai." },
-  { t: "Real, verifiable work", d: "Har project GitHub pe public hai - claims nahi, actual repos dekh sakte ho." },
-  { t: "Fast turnaround", d: "Chhote projects days mein deliver hote hain, hafton mein nahi." },
-  { t: "Full-stack delivery", d: "Dashboard se le kar backend, deployment tak - sab ek jagah se." },
+  { t: "Direct founder access", d: "No account managers, no middle-men - the person who estimates is the one who writes the code." },
+  { t: "Real, verifiable work", d: "Every project is public on GitHub - you can see the actual repos, not just claims." },
+  { t: "Fast turnaround", d: "Small projects ship in days, not weeks." },
+  { t: "Full-stack delivery", d: "From the dashboard to the backend and deployment - all from one place." },
 ]
 
 const FAQS = [
-  { q: "Kitna time lagta hai ek project deliver karne mein?", a: "Chhote projects (dashboard, chatbot, automation script) usually 2-5 din mein deliver hote hain. Bara/custom SaaS project ka timeline AI Estimator turant bata deta hai jab aap apna problem submit karte hain." },
-  { q: "Pricing kaise decide hoti hai?", a: "Har project alag hai, isliye fixed package nahi hai. Submit Your Problem form fill karo ya AI Assistant se baat karo - dono jagah instant estimate milta hai based on scope." },
-  { q: "Source code milta hai ya sirf hosted service?", a: "Full source code milta hai, aapka apna hai. Koi vendor lock-in nahi." },
-  { q: "Kya main pehle se bani dashboards/systems ko modify bhi karwa sakta hoon?", a: "Bilkul - existing Power BI dashboards, scripts, ya systems ko improve/fix karna bhi ek common request hai. Submit Your Problem mein detail likh dein." },
-  { q: "Delivery ke baad support milta hai?", a: "Haan - bugs fix hote hain aur chhote tweaks delivery ke baad bhi cover hote hain. Bade changes naya scope count hote hain." },
+  { q: "How long does it take to deliver a project?", a: "Small projects (a dashboard, chatbot or automation script) are usually delivered in 2-5 days. For larger or custom SaaS projects, the AI Estimator gives you a timeline right away when you submit your problem." },
+  { q: "How is pricing decided?", a: "Every project is different, so there are no fixed packages. Fill in the Submit Your Problem form or chat with the AI Assistant - both give you an instant estimate based on the scope." },
+  { q: "Do I get the source code, or is it only a hosted service?", a: "You get the full source code and it's yours. No vendor lock-in." },
+  { q: "Can I have my existing dashboards or systems modified?", a: "Absolutely - improving or fixing existing Power BI dashboards, scripts or systems is a common request. Just describe it in Submit Your Problem." },
+  { q: "Is support included after delivery?", a: "Yes - bug fixes and small tweaks are covered after delivery. Larger changes count as new scope." },
 ]
 
 function SectionHeading({ eyebrow, title, subtitle }){
@@ -54,7 +54,7 @@ export default function Landing(){
           <div>
             <div className="inline-flex px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs mb-6">FastAPI + React + Power BI • Agency OS v1.0</div>
             <h1 className="font-display text-5xl lg:text-6xl font-bold leading-[1.1] mb-6">We build AI-powered systems that solve real business problems</h1>
-            <p className="text-slate-400 text-xl max-w-xl mb-10">Client ka masla sunte hain, FastAPI + React + AI se best solution bana ke kal deliver karte hain. CRM + ERP + Delivery - sab ek system me.</p>
+            <p className="text-slate-400 text-xl max-w-xl mb-10">We listen to your problem, then build the best solution with FastAPI + React + AI and deliver it fast. CRM + ERP + Delivery - all in one system.</p>
             <div className="flex flex-wrap gap-4">
               <a href="/portal" className="px-8 py-4 bg-indigo-600 rounded-xl font-bold">Submit Your Problem →</a>
               <a href="/projects" className="px-8 py-4 bg-slate-800 rounded-xl border border-slate-700">View Our Work</a>
