@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 NextGen Analytics
+# NextGen Analytics
 ### We Don't Just Analyze Data. We Build Systems That Make You Money.
 
 **AI-Powered Automation · Power BI Dashboards · Custom SaaS Solutions**
@@ -21,18 +21,14 @@ Most developers just write code. Most analysts just make charts. **I build compl
 ### 📊 1. Business Intelligence & Power BI
 *   **What I do:** I take your messy, 50-tab Excel files and turn them into **one interactive, beautiful Power BI dashboard**.
 *   **Why you need it:** Stop waiting for end-of-month reports. See your sales, inventory, and profit margins in real-time with a single click.
-*   *Think:* Coca-Cola Sales Analytics, Real Estate Property Dashboards, Employee Promotion trackers.
 
 ### 🤖 2. AI Automation & Custom LLM Tools
 *   **What I do:** I build AI tools that replace hours of manual work.
-*   **Why you need it:** 
-    *   Want to auto-screen resumes? (ATS Resume Scorer)
-    *   Want to ask questions to your financial PDFs? (LLM ESG Chatbot)
-    *   Want an AI that generates videos or clones voices? (SadTalker & Coqui XTTS)
+*   **Why you need it:** Want to auto-screen resumes? Want to ask questions to your financial PDFs? Want an AI that generates videos? I build it all.
 *   **Result:** You save money on staffing and work 10x faster.
 
 ### 🎯 3. Sales, Lead Gen & Outreach Systems
-*   **What I do:** I build custom CRMs and lead generation bots. 
+*   **What I do:** I build custom CRMs and lead generation bots.
 *   **Why you need it:** I built tools that scrape Google Maps for your perfect client, analyze their website quality, and automatically reach out to them via **WhatsApp Business API, LinkedIn, and Email**.
 *   **Result:** Your sales team doesn't waste time finding leads. The system feeds them hot leads daily.
 
@@ -58,16 +54,12 @@ I don't just show code on GitHub. I deploy live apps on Hugging Face, Vercel, an
 
 ## 🌍 Proof of Work (Live Projects)
 
-Instead of telling you, let me show you what I've already built:
-
 | Project | The Problem It Solves | The Impact |
 | :--- | :--- | :--- |
 | **Gulf Outreach Hub** | Manual WhatsApp & Email marketing is slow. | Built a full CRM (FastAPI + React) that automates outreach, bulk contacts, and campaign scheduling. |
 | **NextGen Lead Generator** | Finding B2B clients is exhausting. | AI-powered Google Maps scraper + website analyzer. Finds prospects and checks if their website is good. |
 | **ATS Resume Scorer** | Manual resume screening wastes HR's time. | AI tool that scores resumes against job descriptions instantly. |
 | **Dubai Real Estate Dashboard** | Investors can't spot property trends quickly. | Power BI interactive drill-downs for real estate data. |
-
-*(Explore my GitHub repositories below to see the code behind these systems.)*
 
 ---
 
