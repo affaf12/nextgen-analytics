@@ -1,1 +1,8 @@
+# VIP Exceptions (Google & SEO Files)
+/sitemap.xml    /sitemap.xml    200
+/robots.txt     /robots.txt     200
+/llms.txt       /llms.txt       200
+/google0de8724b4f040a63.html  /google0de8724b4f040a63.html 200
+
+# Catch-all (React App ke liye)
 /*    /index.html   200
