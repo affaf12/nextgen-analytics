@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import api from '../api/client.js' // Backend connection
+import api from '../api/client.js'
 
-// Aapki VIP Links
+// Aapki VIP Links & Contact Info
 const CALENDLY_LINK = "https://calendly.com/muhammadaffaf746/new-meeting"
 const PORTFOLIO_LINK = "https://affaf12.github.io"
+const EMAIL_ADDRESS = "muhammadaffaf746@gmail.com"
+const WHATSAPP_NUMBER = "03042365964"
+const LINKEDIN_LINK = "https://www.linkedin.com/in/muhammadaffaf/"
 
 const WELCOME = "Hi there! 👋 I'm Affaf's Executive AI Assistant. I can help you with Power BI dashboards, AI automation, custom CRMs, or booking a consultation. How can I help you scale today?"
 
-// Quick Buttons for Clients (VIP Touch)
 const SUGGESTIONS = [
   "Book a Discovery Call 📅",
   "Power BI Dashboards 📊",
@@ -23,7 +25,6 @@ export default function ChatWidget(){
   const [sending, setSending] = useState(false)
   const scrollRef = useRef(null)
 
-  // Auto-scroll to bottom jab naya message aaye
   useEffect(() => {
     if(scrollRef.current){
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
@@ -35,73 +36,101 @@ export default function ChatWidget(){
     const text = directText || input.trim()
     if(!text || sending) return
     
-    // User ka message screen par show karein
     setMessages(m => [...m, { from: 'user', text }])
     setInput('')
     setSending(true)
 
     const lowerText = text.toLowerCase()
 
-    // 🌟 SMART FRONTEND LOGIC (Bina Backend ke VIP Jawab) 🌟
+    // 🌟 SMART FRONTEND LOGIC (Human-like English Answers) 🌟
     setTimeout(async () => {
       
-      // 1. Agar Call ya Meeting maange
-      if (lowerText.includes('book') || lowerText.includes('call') || lowerText.includes('meeting') || lowerText.includes('consult') || lowerText.includes('calendar')) {
+      // 1. Meeting / Calendly
+      if (lowerText.includes('book') || lowerText.includes('call') || lowerText.includes('meeting') || lowerText.includes('consult') || lowerText.includes('calendar') || lowerText.includes('calendly') || lowerText.includes('schedule')) {
         setMessages(m => [...m, { 
           from: 'ai', 
-          text: `I'd love to connect! 🚀 You can book a direct 15-minute discovery call with Affaf right here:\n👉 ${CALENDLY_LINK}\n\nOr view his portfolio: ${PORTFOLIO_LINK}`
+          text: `I'd love to connect! 🚀 You can book a direct 15-minute discovery call with Affaf right here:\n👉 ${CALENDLY_LINK}\n\nOr check out his portfolio: ${PORTFOLIO_LINK}`
         }])
         setSending(false)
         return
       }
 
-      // 2. Agar Power BI ya Dashboard ke baare mein poochay
+      // 2. Contact Info (Email, WhatsApp, LinkedIn)
+      if (lowerText.includes('email') || lowerText.includes('contact') || lowerText.includes('reach') || lowerText.includes('whatsapp') || lowerText.includes('number') || lowerText.includes('linkedin')) {
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `You can reach Affaf directly through any of these channels:\n\n📧 Email: ${EMAIL_ADDRESS}\n📱 WhatsApp: ${WHATSAPP_NUMBER}\n💼 LinkedIn: ${LINKEDIN_LINK}\n\nOr book a quick call here: ${CALENDLY_LINK}`
+        }])
+        setSending(false)
+        return
+      }
+
+      // 3. Power BI / Data Analytics Projects
       if (lowerText.includes('power bi') || lowerText.includes('dashboard') || lowerText.includes('report') || lowerText.includes('data')) {
         setMessages(m => [...m, { 
           from: 'ai', 
-          text: `Yes, absolutely! Affaf specializes in Power BI. He builds interactive dashboards for Sales, HR, Inventory, and Real Estate (like the Dubai Elite Properties dashboard). \n\nWe can turn your Excel files into live reports in 1-2 weeks. Want to see samples? Check out: ${PORTFOLIO_LINK}`
+          text: `Yes, absolutely! Affaf has built several interactive Power BI dashboards, including:\n• Coca-Cola Sales Dashboard\n• Dubai Elite Properties Dashboard\n• Employee Promotion Analytics\n• Inventory Management Dashboard\n\nHe can turn your Excel files into live reports in 1-2 weeks. Want to see samples? Check out: ${PORTFOLIO_LINK}`
         }])
         setSending(false)
         return
       }
 
-      // 3. Agar AI ya Automation ke baare mein poochay
+      // 4. AI Automation & Tools
       if (lowerText.includes('ai') || lowerText.includes('automation') || lowerText.includes('chatbot') || lowerText.includes('llm') || lowerText.includes('bot')) {
         setMessages(m => [...m, { 
           from: 'ai', 
-          text: `Affaf builds custom AI tools using FastAPI and React! For example, he built an AI Lead Generator (Google Maps scraper), an ATS Resume Scorer, and WhatsApp automation systems. \n\nWhat kind of manual work are you trying to automate?`
+          text: `Affaf is an expert in building AI tools using FastAPI and React! His portfolio includes:\n• AI Lead Generator (Google Maps Scraper)\n• ATS Resume Scorer (Streamlit)\n• LLM ESG Chatbot\n• WhatsApp Number Checker\n• NextGen Avatar (SadTalker)\n• Voice Cloning System\n\nWhat kind of manual work are you trying to automate?`
         }])
         setSending(false)
         return
       }
 
-      // 4. Agar Pricing ya Cost ke baare mein poochay
-      if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('pricing') || lowerText.includes('budget')) {
+      // 5. Web Apps / CRMs
+      if (lowerText.includes('crm') || lowerText.includes('web') || lowerText.includes('react') || lowerText.includes('app')) {
         setMessages(m => [...m, { 
           from: 'ai', 
-          text: `Projects are customized based on your needs. A typical Power BI dashboard starts around $350, and AI tools around $799. \n\nLet's discuss your exact requirements on a quick call:\n👉 ${CALENDLY_LINK}`
+          text: `We build full-stack custom software and CRMs! Some of Affaf's builds include:\n• Gulf Outreach Hub (FastAPI + React CRM)\n• NextGen Job CRM\n• Social Media Publishing Tool\n• Jawharat Al-Bihar Umrah Website\n\nDo you need a custom system built from scratch? Let's discuss: ${CALENDLY_LINK}`
         }])
         setSending(false)
         return
       }
 
-      // 5. AGAR BACKEND LIVE HAI TOH AI SE POOCHEIN
+      // 6. Can you build X? (General Capability)
+      if (lowerText.includes('can you') || lowerText.includes('do you') || lowerText.includes('make') || lowerText.includes('build')) {
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `Yes, Affaf can definitely build that! He specializes in building end-to-end systems combining Data Analytics, AI, and Full-Stack Development. \n\nIf you have a specific project in mind, let's discuss it on a quick call: ${CALENDLY_LINK}`
+        }])
+        setSending(false)
+        return
+      }
+
+      // 7. Pricing
+      if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('pricing') || lowerText.includes('budget') || lowerText.includes('rate')) {
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `Projects are customized based on your exact needs. A typical Power BI dashboard starts around $350, and AI automation tools around $799.\n\nLet's discuss your specific requirements on a quick call:\n👉 ${CALENDLY_LINK}`
+        }])
+        setSending(false)
+        return
+      }
+
+      // 8. Backend Fallback
       try {
         const res = await api.post('/api/v1/ai/chat', { message: text })
         setMessages(m => [...m, { from: 'ai', text: res.data.reply }])
       } catch (error) {
-        // Agar backend down ho, toh yeh default VIP reply jayega
         setMessages(m => [...m, { 
           from: 'ai', 
-          text: `Thanks for reaching out! Affaf handles Power BI, AI Automation, and Custom CRMs. For detailed project scope and pricing, please book a quick call here:\n👉 ${CALENDLY_LINK}` 
+          text: `Thanks for reaching out! Affaf specializes in Power BI, AI Automation, and Custom CRMs. For specific inquiries, please contact him directly:\n📱 WhatsApp: ${WHATSAPP_NUMBER}\n📧 Email: ${EMAIL_ADDRESS}\n\nOr book a call: ${CALENDLY_LINK}` 
         }])
       } finally {
         setSending(false)
       }
-    }, 800) // Thoda sa delay taake "Typing..." animation dikhe
+    }, 800)
   }
 
-  // Links ko clickable banane ka function
+  // Convert links to clickable
   const renderText = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, i) => {
@@ -123,7 +152,6 @@ export default function ChatWidget(){
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="mb-4 w-[360px] max-w-[90vw] h-[520px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
-            {/* VIP Header */}
             <div className="px-4 py-4 bg-gradient-to-r from-indigo-900 to-slate-800 border-b border-slate-700 flex items-center justify-between shadow-md z-10">
               <div className="flex items-center gap-3">
                 <div className="relative">
@@ -140,7 +168,6 @@ export default function ChatWidget(){
               <button onClick={()=>setOpen(false)} className="text-slate-400 hover:text-white text-2xl leading-none transition-colors" aria-label="Close chat">×</button>
             </div>
 
-            {/* Chat Area */}
             <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
               {messages.map((m, i) => (
                 <motion.div 
@@ -159,7 +186,6 @@ export default function ChatWidget(){
                 </motion.div>
               ))}
               
-              {/* Quick Action Buttons (Sirf shuru mein dikhein) */}
               {messages.length === 1 && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {SUGGESTIONS.map((s, i) => (
@@ -174,7 +200,6 @@ export default function ChatWidget(){
                 </div>
               )}
 
-              {/* Typing Animation */}
               {sending && (
                 <div className="max-w-[85%] text-sm px-4 py-3 rounded-2xl bg-slate-800 text-slate-400 border border-slate-700 rounded-tl-sm flex gap-1.5 items-center w-fit">
                   <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5 }}>●</motion.span>
@@ -184,12 +209,11 @@ export default function ChatWidget(){
               )}
             </div>
 
-            {/* Input Area */}
             <form onSubmit={send} className="p-3 bg-slate-900 border-t border-slate-800 flex gap-2">
               <input
                 value={input}
                 onChange={e=>setInput(e.target.value)}
-                placeholder="Ask about Power BI, AI, or book a call..."
+                placeholder="Ask about projects, pricing, or contact..."
                 className="flex-1 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
               />
               <button type="submit" disabled={sending || !input.trim()} className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white text-sm font-semibold disabled:opacity-50 transition-colors flex items-center justify-center">
@@ -202,7 +226,6 @@ export default function ChatWidget(){
         )}
       </AnimatePresence>
 
-      {/* Floating Chat Button */}
       <motion.button
         onClick={()=>setOpen(o=>!o)}
         whileHover={{ scale: 1.05 }}
