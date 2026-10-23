@@ -1,0 +1,52 @@
+# ==========================================
+# NextGen Analytics - robots.txt
+# AI Search & Web Crawler Optimization
+# ==========================================
+
+# Allow all standard search engines (Google, Bing, etc.)
+User-agent: *
+Allow: /
+
+# ------------------------------------------
+# AI CRAWLERS (For AI Search Ranking)
+# ------------------------------------------
+
+# OpenAI (ChatGPT Search & Browsing)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google Gemini / Vertex AI
+User-agent: Google-Extended
+Allow: /
+
+# Common Crawl (Used to train most major LLMs)
+User-agent: CCBot
+Allow: /
+
+# Meta (Facebook / Llama AI)
+User-agent: FacebookBot
+Allow: /
+
+# Apple (Apple Intelligence)
+User-agent: Applebot
+Allow: /
+
+# ------------------------------------------
+# SITEMAP
+# ------------------------------------------
+# (Agar aap future mein sitemap add karte hain, toh isko uncomment kar lein)
+# Sitemap: https://nextgen-analytics-delta.vercel.app/sitemap.xml
