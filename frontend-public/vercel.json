@@ -1,11 +1,24 @@
 {
   "rewrites": [
     {
+      "source": "/google(.*)\\.html",
+      "destination": "/google$1.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
+    {
+      "source": "/google(.*)\\.html",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
