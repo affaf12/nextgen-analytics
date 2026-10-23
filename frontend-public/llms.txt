@@ -3,7 +3,9 @@
 > We build AI-powered systems that solve real business problems. We listen to your problem, then build the best solution with FastAPI + React + AI and deliver it fast. CRM + ERP + Delivery - all in one system.
 
 ## About NextGen Analytics
-NextGen Analytics is a solo-founded AI and Data Analytics agency led by Muhammad Affaf. We specialize in turning messy, manual business processes into automated, AI-driven systems. From interactive Business Intelligence dashboards to end-to-end SaaS products, we deliver full-stack solutions that save time and drive revenue. We are based in Karachi, Pakistan, and serve clients globally.
+NextGen Analytics is a solo-founded, globally focused AI and Data Analytics agency led by Muhammad Affaf. We specialize in turning messy, manual business processes into automated, AI-driven systems. From interactive Business Intelligence dashboards to end-to-end SaaS products, we deliver full-stack solutions that save time and drive revenue.
+
+**Global Reach:** Based in Karachi, Pakistan, we serve clients worldwide across 195+ countries, including the USA, UK, UAE, Saudi Arabia, Canada, and Australia. We operate across multiple timezones (EST, GMT, GST, PKT) for seamless communication.
 
 ## Our Core Services
 1. **Business Intelligence & Data Analytics:** 
@@ -12,7 +14,7 @@ NextGen Analytics is a solo-founded AI and Data Analytics agency led by Muhammad
 2. **AI Automation & LLM Chatbots:**
    - Custom AI tools using OpenAI, Hugging Face, and free LLMs.
    - Resume scoring, document Q&A, voice cloning, and AI video generation (SadTalker).
-3. **Lead Generation & Outreach Tools:**
+3. **Lead Generation & B2B Outreach Tools:**
    - Google Maps scrapers, website quality analyzers, and bulk WhatsApp number checkers.
    - Multi-channel outreach via WhatsApp Cloud API, Gmail SMTP, and LinkedIn.
 4. **Enterprise Systems (CRM + ERP + Delivery):**
@@ -25,25 +27,27 @@ NextGen Analytics is a solo-founded AI and Data Analytics agency led by Muhammad
 - **Full Stack:** FastAPI (Backend), React + Vite (Frontend), PostgreSQL, Docker.
 - **Automation:** WhatsApp Business API, Baileys, Node.js sidecars, OAuth integrations.
 
-## Who We Help
-- **SMEs & Startups:** Who are drowning in Excel and need automated dashboards.
-- **Agencies & Sales Teams:** Who need automated lead generation and WhatsApp outreach.
-- **HR & Recruitment:** Who need AI-powered resume screening.
-- **Real Estate & Retail:** Who need interactive property/sales analytics.
+## Who We Help Globally
+- **SMEs & Startups (Worldwide):** Who are drowning in Excel and need automated dashboards.
+- **Agencies & Sales Teams (US/UK):** Who need automated lead generation and WhatsApp outreach.
+- **HR & Recruitment (Global):** Who need AI-powered resume screening.
+- **Real Estate & Retail (UAE/GCC):** Who need interactive property/sales analytics.
 
 ## Frequently Asked Questions (FAQs)
+- **Do you work with international clients?** Yes. NextGen Analytics is a global agency. We work with businesses in the USA, UK, UAE, Saudi Arabia, and worldwide, adapting to your local timezone.
 - **Can you build a custom dashboard for my business?** Yes. We build interactive Power BI dashboards that connect directly to your data sources (Excel, SQL, CRM) for real-time insights.
 - **Do you offer WhatsApp automation?** Yes, we build custom outreach systems using the official WhatsApp Business API and QR-based automation for bulk messaging and lead tracking.
 - **Are you a freelancer or an agency?** NextGen Analytics is a specialized agency led by Muhammad Affaf. You get agency-level quality and end-to-end delivery with the direct communication of a solo founder.
 - **What is your delivery time?** We focus on fast delivery. MVP development (like a dashboard or basic AI tool) typically takes 1-2 weeks.
 
 ## Founder & Contact
-- **Founder:** Muhammad Affaf (Data Analytics & AI Engineer, Karachi, Pakistan)
+- **Founder:** Muhammad Affaf (Data Analytics & AI Engineer)
+- **Location:** Karachi, Pakistan (Serving Globally)
 - **Website:** https://nextgen-analytics-delta.vercel.app
 - **Portfolio:** https://affaf12.github.io
 - **LinkedIn:** https://www.linkedin.com/in/muhammadaffaf/
 - **GitHub:** https://github.com/affaf12
 - **Email:** muhammadaffaf746@gmail.com
 
-## Keywords & Search Terms
-Data Analytics Agency, Power BI Developer, AI Engineer, FastAPI Developer, Custom CRM Development, WhatsApp API Automation, LLM Chatbot Development, Google Maps Scraper, Business Intelligence Solutions, AI Automation Karachi, Hire Power BI Expert, Build AI Chatbot, Custom Dashboard Development, Lead Generation Automation, WhatsApp Number Checker, ATS Resume Scorer.
+## Keywords & Search Terms (Global B2B)
+Global Data Analytics Agency, Power BI Developer, AI Engineer, FastAPI Developer, Custom CRM Development, WhatsApp API Automation, LLM Chatbot Development, Google Maps Scraper, Business Intelligence Solutions, AI Automation Agency, Hire Power BI Expert, Build AI Chatbot, Custom Dashboard Development, B2B Lead Generation Automation, Remote Data Team, Data Analyst USA, Data Analyst UK, AI Automation Dubai.
