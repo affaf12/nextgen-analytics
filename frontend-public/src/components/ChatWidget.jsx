@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import api from '../api/client.js'
+import api from '../api/client.js' // Backend connection
 
 // Aapki VIP Links
 const CALENDLY_LINK = "https://calendly.com/muhammadaffaf746/new-meeting"
@@ -8,7 +8,7 @@ const PORTFOLIO_LINK = "https://affaf12.github.io"
 
 const WELCOME = "Hi there! 👋 I'm Affaf's Executive AI Assistant. I can help you with Power BI dashboards, AI automation, custom CRMs, or booking a consultation. How can I help you scale today?"
 
-// Quick Buttons for Clients
+// Quick Buttons for Clients (VIP Touch)
 const SUGGESTIONS = [
   "Book a Discovery Call 📅",
   "Power BI Dashboards 📊",
@@ -23,6 +23,7 @@ export default function ChatWidget(){
   const [sending, setSending] = useState(false)
   const scrollRef = useRef(null)
 
+  // Auto-scroll to bottom jab naya message aaye
   useEffect(() => {
     if(scrollRef.current){
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
@@ -34,45 +35,78 @@ export default function ChatWidget(){
     const text = directText || input.trim()
     if(!text || sending) return
     
+    // User ka message screen par show karein
     setMessages(m => [...m, { from: 'user', text }])
     setInput('')
     setSending(true)
 
-    // 🌟 VIP LOGIC: Agar client meeting ya call maange
     const lowerText = text.toLowerCase()
-    if (lowerText.includes('book') || lowerText.includes('call') || lowerText.includes('meeting') || lowerText.includes('consult') || lowerText.includes('calendar')) {
-      setTimeout(() => {
+
+    // 🌟 SMART FRONTEND LOGIC (Bina Backend ke VIP Jawab) 🌟
+    setTimeout(async () => {
+      
+      // 1. Agar Call ya Meeting maange
+      if (lowerText.includes('book') || lowerText.includes('call') || lowerText.includes('meeting') || lowerText.includes('consult') || lowerText.includes('calendar')) {
         setMessages(m => [...m, { 
           from: 'ai', 
-          text: `I'd love to connect! 🚀 You can book a direct 15-minute discovery call with Affaf right here:\n👉 ${CALENDLY_LINK}\n\nOr view his portfolio: ${PORTFOLIO_LINK}`,
-          isSpecial: true 
+          text: `I'd love to connect! 🚀 You can book a direct 15-minute discovery call with Affaf right here:\n👉 ${CALENDLY_LINK}\n\nOr view his portfolio: ${PORTFOLIO_LINK}`
         }])
         setSending(false)
-      }, 1000)
-      return
-    }
+        return
+      }
 
-    // 🌟 Backend AI Call (Agar backend live hai)
-    try {
-      const res = await api.post('/api/v1/ai/chat', { message: text })
-      setMessages(m => [...m, { from: 'ai', text: res.data.reply }])
-    } catch {
-      // Fallback agar backend down ho
-      setMessages(m => [...m, { 
-        from: 'ai', 
-        text: `Great question! Affaf specializes in Power BI, AI Automation, and Custom CRMs. To discuss your specific needs, please book a quick call here:\n👉 ${CALENDLY_LINK}` 
-      }])
-    } finally {
-      setSending(false)
-    }
+      // 2. Agar Power BI ya Dashboard ke baare mein poochay
+      if (lowerText.includes('power bi') || lowerText.includes('dashboard') || lowerText.includes('report') || lowerText.includes('data')) {
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `Yes, absolutely! Affaf specializes in Power BI. He builds interactive dashboards for Sales, HR, Inventory, and Real Estate (like the Dubai Elite Properties dashboard). \n\nWe can turn your Excel files into live reports in 1-2 weeks. Want to see samples? Check out: ${PORTFOLIO_LINK}`
+        }])
+        setSending(false)
+        return
+      }
+
+      // 3. Agar AI ya Automation ke baare mein poochay
+      if (lowerText.includes('ai') || lowerText.includes('automation') || lowerText.includes('chatbot') || lowerText.includes('llm') || lowerText.includes('bot')) {
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `Affaf builds custom AI tools using FastAPI and React! For example, he built an AI Lead Generator (Google Maps scraper), an ATS Resume Scorer, and WhatsApp automation systems. \n\nWhat kind of manual work are you trying to automate?`
+        }])
+        setSending(false)
+        return
+      }
+
+      // 4. Agar Pricing ya Cost ke baare mein poochay
+      if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('pricing') || lowerText.includes('budget')) {
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `Projects are customized based on your needs. A typical Power BI dashboard starts around $350, and AI tools around $799. \n\nLet's discuss your exact requirements on a quick call:\n👉 ${CALENDLY_LINK}`
+        }])
+        setSending(false)
+        return
+      }
+
+      // 5. AGAR BACKEND LIVE HAI TOH AI SE POOCHEIN
+      try {
+        const res = await api.post('/api/v1/ai/chat', { message: text })
+        setMessages(m => [...m, { from: 'ai', text: res.data.reply }])
+      } catch (error) {
+        // Agar backend down ho, toh yeh default VIP reply jayega
+        setMessages(m => [...m, { 
+          from: 'ai', 
+          text: `Thanks for reaching out! Affaf handles Power BI, AI Automation, and Custom CRMs. For detailed project scope and pricing, please book a quick call here:\n👉 ${CALENDLY_LINK}` 
+        }])
+      } finally {
+        setSending(false)
+      }
+    }, 800) // Thoda sa delay taake "Typing..." animation dikhe
   }
 
-  // Link text ko clickable banane ka function
+  // Links ko clickable banane ka function
   const renderText = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, i) => {
       if (part.match(urlRegex)) {
-        return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-indigo-400 underline hover:text-indigo-300 font-semibold">{part}</a>
+        return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-indigo-400 underline hover:text-indigo-300 font-semibold break-all">{part}</a>
       }
       return <span key={i}>{part}</span>
     })
@@ -87,16 +121,16 @@ export default function ChatWidget(){
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="mb-4 w-[360px] max-w-[90vw] h-[500px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="mb-4 w-[360px] max-w-[90vw] h-[520px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
-            {/* Header */}
-            <div className="px-4 py-4 bg-gradient-to-r from-indigo-900 to-slate-800 border-b border-slate-700 flex items-center justify-between">
+            {/* VIP Header */}
+            <div className="px-4 py-4 bg-gradient-to-r from-indigo-900 to-slate-800 border-b border-slate-700 flex items-center justify-between shadow-md z-10">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-xl font-bold text-white shadow-lg">
                     A
                   </div>
-                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-slate-900 rounded-full"></span>
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-slate-900 rounded-full animate-pulse"></span>
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">NextGen AI</p>
@@ -113,7 +147,7 @@ export default function ChatWidget(){
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   key={i} 
-                  className={`max-w-[85%] text-sm px-4 py-2.5 rounded-2xl leading-relaxed ${
+                  className={`max-w-[85%] text-sm px-4 py-3 rounded-2xl leading-relaxed ${
                     m.from==='ai' 
                       ? 'bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-sm' 
                       : 'bg-indigo-600 text-white ml-auto rounded-tr-sm shadow-md'
@@ -125,7 +159,7 @@ export default function ChatWidget(){
                 </motion.div>
               ))}
               
-              {/* Quick Actions (Sirf shuru mein dikhein) */}
+              {/* Quick Action Buttons (Sirf shuru mein dikhein) */}
               {messages.length === 1 && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {SUGGESTIONS.map((s, i) => (
@@ -140,8 +174,9 @@ export default function ChatWidget(){
                 </div>
               )}
 
+              {/* Typing Animation */}
               {sending && (
-                <div className="max-w-[85%] text-sm px-4 py-2.5 rounded-2xl bg-slate-800 text-slate-400 border border-slate-700 rounded-tl-sm flex gap-1 items-center w-fit">
+                <div className="max-w-[85%] text-sm px-4 py-3 rounded-2xl bg-slate-800 text-slate-400 border border-slate-700 rounded-tl-sm flex gap-1.5 items-center w-fit">
                   <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5 }}>●</motion.span>
                   <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }}>●</motion.span>
                   <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }}>●</motion.span>
@@ -167,7 +202,7 @@ export default function ChatWidget(){
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
+      {/* Floating Chat Button */}
       <motion.button
         onClick={()=>setOpen(o=>!o)}
         whileHover={{ scale: 1.05 }}
