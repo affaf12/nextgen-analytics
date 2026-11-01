@@ -77,18 +77,6 @@ I use modern, scalable technologies to ensure your systems are fast, secure, and
 
 ---
 
-## 📂 Other Notable Repositories
-
-Yahan mere kuch aur projects hain. Inhe dekhne ke liye repo ke naam par click karein.
-
-| Repository | Description | Tech Stack |
-| :--- | :--- | :--- |
-| **[Repo-Name-1](https://github.com/affaf12/Repo-Name-1)** | Yahan repo ka 1 line ka description likhein. | Python, FastAPI |
-| **[Repo-Name-2](https://github.com/affaf12/Repo-Name-2)** | Yahan repo ka 1 line ka description likhein. | React, Node.js |
-| **[Repo-Name-3](https://github.com/affaf12/Repo-Name-3)** | Yahan repo ka 1 line ka description likhein. | Power BI, DAX |
-
----
-
 ## 🏅 Certifications & Achievements
 
 *   **Microsoft Power BI Data Analyst** (Coursera, 2023) [citation:2]
